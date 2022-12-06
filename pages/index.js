@@ -1,17 +1,40 @@
-import Head from "next/head";
-import Image from "next/image";
-// import styles from '../styles/Home.module.css'
-import Navbar from "./src/components/Navabr";
+import Head from 'next/head'
+import Layout, { siteTitle } from '../pages/src/components/Layout'
+import utilStyles from '../styles/utils.module.css'
+import { getSortedPostsData } from '../lib/posts'
 
-export default function Home() {
+export default function Home({ allPostsData }) {
   return (
-    <div>
+    <Layout home>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>{siteTitle}</title>
       </Head>
-      <Navbar />
-      <h3>nishar multani</h3>
-    </div>
-  );
+      <section className={utilStyles.headingMd}>
+        <p>[Your Self Introduction]</p>
+      </section>
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <ul className={utilStyles.list}>
+          {allPostsData.map(({ id, date, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              {title}
+              <br />
+              {id}
+              <br />
+              {date}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </Layout>
+  )
+}
+
+export async function getStaticProps() {
+  const allPostsData = getSortedPostsData()
+  return {
+    props: {
+      allPostsData
+    }
+  }
 }

@@ -5,8 +5,9 @@ export default function Navbar() {
       this is navabr
       <Link href="/Products">product</Link>
       <Link href="/About">About</Link>
-      <Link href="/Products/21"> single product</Link>
-      {/* <a href="/About"> nishar abour</a> */}
+      <Link href="/Products/[id]" as="/Products/3"> single product</Link>
+
+      <Link href="/post">posts</Link>
 
     </div>
   );
